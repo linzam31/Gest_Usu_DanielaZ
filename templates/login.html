@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+    <title>Inicio de Sesión</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Ingreso de Usuarios</h4>
+            </div>
+
+            <div class="modal-body">
+                    <!-- Formulario de registro de usuario -->
+                    <form method="POST" action="{{url_for('login_form')}}"> 
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Usuario:</label>
+                            <input type="text" class="form-control" name="txtusu" placeholder="Ingrese el Usuario">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña:</label>
+                            <input type="password" class="form-control" name="txtcontra" placeholder="Ingrese su contraseña">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Ingresar</button>
+                        <a href="">¿Olvidó su contraseña?</a>
+                    </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
