@@ -9,23 +9,91 @@
  
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="card shadow p-4">
+    <div class="container  mt-5">
+        <div class="card shadow bg-light p-4">
             <h1 class="text-center">Gestor de usuarios</h1>
             <div class="text-center">
-                <button type = "button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
+                <button type = "button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">
                 Registrar Usuario
                 </button>
-                <button class="btn btn-primary">
-                    Ver Usuarios   
+                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal2">
+                    Registrar Empleado  
                 </button>
-                <a href="{{url_for('salir')}}">Cerrar Sesión</a>
+                <a href="{{url_for('salir')}}" class="btn btn-outline-danger">Cerrar Sesión</a>
             </div>
 
             <!-- llamar al modal-->
             {% include 'registrarusu.html' %}
+            {% include 'regis_emple.html' %}
         </div>
     </div>
+    <h3 class="text-center mt-5">Usuarios</h3>
+    <table class="table table-secondary container my-5">
+            <thead>
+                <tr>
+                    <th >ID</th>
+                    <th >Usuario</th>
+                    <th >Contraseña</th>
+                    <th >Rol</th>
+                    <th >Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in user %}
+                <tr>
+                    <td>{{ x[0]}}</td>
+                    <td>{{ x[1]}}</td>
+                    <td>{{ x[2]}}</td>
+                    <td>{{ x[3]}}</td>
+                    <td>
+                        <a href="{{url_for('editar_usu', id=x[0])}}" class="btn btn-outline-secondary">Editar</a>
+                        <a href="{{url_for('eliminar_usuario', id=x[0])}}" class="btn btn-outline-danger"
+                        onclick="return confirm('¿Estas seguro que deseas eliminar este usuario?')">Eliminar</a>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+
+            <h3 class="text-center mt-5">Empleados</h3>
+    <table class="table table-secondary container my-5">
+            <thead>
+                <tr>
+                    <th >ID</th>
+                    <th >Documento</th>
+                    <th >Nombre</th>
+                    <th >Apellido</th>
+                    <th >Cargo</th>
+                    <th >Id Departamento</th>
+                    <th >Horas Extra</th>
+                    <th >Bonificación</th>
+                    <th >Salario</th>
+                    <th >Salario Neto</th>
+                    <th >Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in emple %}
+                <tr>
+                    <td>{{ e[0]}}</td>
+                    <td>{{ e[1]}}</td>
+                    <td>{{ e[2]}}</td>
+                    <td>{{ e[3]}}</td>
+                    <td>{{ e[4]}}</td>
+                    <td>{{ e[11]}}</td>                  
+                    <td>{{ e[6]}}</td>
+                    <td>{{ e[7]}}</td>
+                    <td>{{ e[5]}}</td>
+                    <td>{{ e[10]}}</td>
+
+                    <td>
+                        <a href="{{url_for('editar_empleado', id=e[0])}}" class="btn btn-outline-secondary">Editar</a>
+                        <a href="{{url_for('eliminar_empleado', id=e[0])}}" class="btn btn-outline-danger"
+                        onclick="return confirm('¿Estas seguro que deseas eliminar este empleado?')">Eliminar</a>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+
 </body>
 </html>
 
