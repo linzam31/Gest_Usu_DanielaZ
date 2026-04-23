@@ -58,7 +58,7 @@ CREATE TABLE `empleado` (
   `ape_empleado` varchar(50) NOT NULL,
   `cargo` varchar(50) NOT NULL,
   `salario` decimal(10,2) NOT NULL,
-  `horas_ex` int(11) DEFAULT NULL,
+  `horas_ex` int(5) DEFAULT NULL,
   `bonificaciones` decimal(10,2) DEFAULT NULL,
   `salud` decimal(10,2) DEFAULT NULL,
   `pension` decimal(10,2) DEFAULT NULL,

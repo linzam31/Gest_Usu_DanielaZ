@@ -42,7 +42,7 @@ def login_form():
             if rol == "administrador":
                     return redirect(url_for("inicio"))
             else:
-                    return "Bienvenido Empleado"
+                    return redirect(url_for("inicio_empleado"))
         else:
             return "Rol Incorrecto"
 
@@ -291,9 +291,48 @@ def actualizar_emple(id):
  
         cursor.close()
         con.close()
-    return redirect(url_for("inicio"))
+    if session.get('rol') == "administrador":
+        return redirect(url_for("inicio"))
+    else:
+        return redirect(url_for("inicio_empleado"))
 
+
+@apps.route('/inicio_empleado')
+def inicio_empleado():
+    if  'usuario' not in session:
+        return redirect(url_for('login'))
     
+    con = conectar()
+    cursor = con.cursor()
+
+
+    cursor.execute("SELECT e.nom_empleado, e.ape_empleado, e.cargo, d.nom_area, e.horas_ex, e.bonificaciones, e.salario, e.salarios_neto FROM empleado e INNER JOIN departamento d ON e.id_dep = d.id_area INNER JOIN usuarios u ON e.documento = u.docu_emple WHERE u.usuario = %s", (session['usuario'],))
+    empleado = cursor.fetchone()
+
+    print (empleado)
+    print("Usuario en sesión:", session.get('usuario'))
+    
+    cursor.close()
+    con.close()
+
+    return render_template('panelempleado.html', emple = empleado)
+
+@apps.route('/editar_emple')
+def editar_emple():
+    if 'usuario' not in session:
+        return redirect(url_for('login'))
+    
+    con = conectar()
+    cursor = con.cursor()
+    
+    sql1 = "SELECT e.* FROM empleado e INNER JOIN usuarios u ON e.documento = u.docu_emple  WHERE u.usuario = %s"
+    cursor.execute(sql1, (session['usuario'],))
+    empleado = cursor.fetchone()
+    
+    cursor.close()
+    con.close()
+    
+    return render_template('edit_emple.html', emple=empleado)
 
 if __name__ == '__main__':
     apps.run(debug=True)
